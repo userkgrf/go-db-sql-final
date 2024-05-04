@@ -23,7 +23,7 @@ func (s ParcelStore) Add(p Parcel) (int, error) {
 	id, err := result.LastInsertId()
 	if err != nil {
 		fmt.Println(err)
-		return 0, fmt.Errorf("ошибка получения ID посылки: %w", err)
+		return 0, fmt.Errorf("error receiving the parcel ID: %w", err)
 	}
 	// верните идентификатор последней добавленной записи
 	return int(id), nil
@@ -64,6 +64,10 @@ func (s ParcelStore) GetByClient(client int) ([]Parcel, error) {
 			return nil, err
 		}
 		parcels = append(parcels, p)
+	}
+	err = rows.Err()
+	if err != nil {
+		return nil, err
 	}
 	return parcels, nil
 }

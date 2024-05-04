@@ -58,7 +58,7 @@ func TestAddGetDelete(t *testing.T) {
 	// удалите добавленную посылку, убедитесь в отсутствии ошибки
 	// проверьте, что посылку больше нельзя получить из БД
 	_, err = store.Get(parcel.Number)
-	require.Error(t, err)
+	require.ErrorIs(t, sql.ErrNoRows, err)
 
 }
 
